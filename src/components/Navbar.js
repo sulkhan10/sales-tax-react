@@ -2,9 +2,8 @@
 export const Navbar = () => {
   
     return (
-      <div className="bg-blue-600">
-        <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-          <div className="relative items-center grid-cols-2 lg:grid-cols-3">
+      <div className="bg-blue-600 h-[10vh]">
+        <div className="px-4 py-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-12 lg:px-8">
          
             <div
               aria-label="Sales Tax Calculator"
@@ -20,7 +19,6 @@ export const Navbar = () => {
             </div>
             
            
-          </div>
         </div>
       </div>
     );
