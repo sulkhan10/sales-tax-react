@@ -1,7 +1,6 @@
 import './App.css';
 import processBasket from './taxCalculator';
 import { useState, useEffect } from 'react';
-import { Navbar } from './components/Navbar';
 function App() {
 let [input, setInput] = useState([]);
 let items = [
@@ -42,8 +41,7 @@ let items = [
   return (
     <div className="App">
      <header className="App-header">
-      <Navbar/>
-          <h1 >Sales Tax Application</h1>
+          <h1>Sales Tax Application</h1>
           <div>
             <h2>Output 1:</h2>
             <p>{output1.join('\n')}</p>
