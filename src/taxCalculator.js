@@ -8,7 +8,11 @@ const calculateSalesTax = (price, taxRate) => {
   const processBasket = (basket) => {
     let total = 0;
     let salesTaxes = 0;
-    const receipt = [];
+    const receipt = {
+        items: [],
+        salesTaxes: 0,
+        total: 0
+    };
   
     basket.forEach((item) => {
       const { quantity, name, price, isImported, isExempt } = item;
@@ -37,11 +41,11 @@ const calculateSalesTax = (price, taxRate) => {
       const formattedItem = `${quantity} ${
         isImported ? 'imported ' : ''
       }${name}: ${itemTotal.toFixed(2)}`;
-      receipt.push(formattedItem);
+      receipt.items.push(formattedItem);
     });
   
-    receipt.push(`Sales Taxes: ${salesTaxes.toFixed(2)}`);
-    receipt.push(`Total: ${total.toFixed(2)}`);
+    receipt.salesTaxes = salesTaxes.toFixed(2)
+    receipt.total= total.toFixed(2)
   
     return receipt;
   };
