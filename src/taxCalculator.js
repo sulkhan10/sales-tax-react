@@ -38,9 +38,11 @@ const calculateSalesTax = (price, taxRate) => {
       salesTaxes += salesTax;
       total += itemTotal;
   
-      const formattedItem = `${quantity} ${
+      const formattedItem = `${quantity} x ${
         isImported ? 'imported ' : ''
-      }${name}: ${itemTotal.toFixed(2)}`;
+      }${name}\n@ ${price.toFixed(2)} : ${(quantity * price).toFixed(2)} + Tax (${salesTax.toFixed(2)}) ${itemTotal.toFixed(2)}`;
+      
+      
       receipt.items.push(formattedItem);
     });
   

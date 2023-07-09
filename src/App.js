@@ -3,6 +3,8 @@ import processBasket from "./taxCalculator";
 import { useState, useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 function App() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
   let [dataSalesTax, setDataSalesTax] = useState({});
   const [items, setItems] = useState([
     { id: 1, name: "book", price: 12.49, isImported: false, isExempt: true },
@@ -99,12 +101,19 @@ function App() {
       return newItems;
     });
   }, [cart]);
-useEffect (() => {
-  calculateReceipt(cart)
-}, [cart])
+  useEffect(() => {
+    calculateReceipt(cart);
+  }, [cart]);
   const calculateReceipt = (basket) => {
-    let result = processBasket(basket)
-    setDataSalesTax(result)
+    let result = processBasket(basket);
+    setDataSalesTax(result);
+  };
+  const showReceipt = () => {
+    setModalOpen(true);
+    setSelectedItems(cart);
+  };
+  const hideReceipt = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -113,7 +122,10 @@ useEffect (() => {
       <div className="flex flex-col sm:flex-row  sm:h-[90vh] ">
         <div className="sm:w-3/4 h-100  overflow-y-scroll flex flex-wrap gap-2 p-4 justify-around">
           {items.map((item) => (
-            <div className="w-[48%] md:w-1/3 lg:w-1/4 xl:w-1/5 max-h-72 mb-4" key={item.id}>
+            <div
+              className="w-[48%] md:w-1/3 lg:w-1/4 xl:w-1/5 max-h-72 mb-4"
+              key={item.id}
+            >
               <div className="flex flex-col  justify-between p-5 bg-white border rounded-xl shadow-lg h-full">
                 {/* <div className="mb-2"> */}
                 <div className="flex flex-col sm:flex-row justify-between">
@@ -166,7 +178,9 @@ useEffect (() => {
                     <p className="text-sm font-bold tracking-wider uppercase">
                       {item.name}
                     </p>
-                    <p className="text-xl sm:text-3xl font-extrabold">$ {item.price}</p>
+                    <p className="text-xl sm:text-3xl font-extrabold">
+                      $ {item.price}
+                    </p>
                   </div>
                 </div>
                 {/* </div> */}
@@ -201,47 +215,162 @@ useEffect (() => {
           ))}
         </div>
         <div className="sm:w-1/4  bg-blue-200 flex flex-col m-2  rounded-lg">
-            <div className="h-[8%] px-4 py-2 text-gray-800">
-              <h2 className="text-2xl font-bold">Shopping Cart</h2>
-            </div>
-            <div className="h-[84%]  overflow-y-scroll ">
-              {cart.map((item) => (
-                <div className="flex items-center bg-blue-300 my-2 px-4" key={item.id}>
-                  <div className="w-[60%]">
-
+          <div className="h-[8%] px-4 py-2 text-gray-800">
+            <h2 className="text-2xl font-bold">Shopping Cart</h2>
+          </div>
+          <div className="h-[84%]  overflow-y-scroll ">
+            {cart.map((item) => (
+              <div
+                className="flex items-center bg-blue-300 my-2 px-4"
+                key={item.id}
+              >
+                <div className="w-[60%]">
                   <h3 className="uppercase">{item.name}</h3>
                   <p>Price: $ {item.price}</p>
-                  </div>
-                  <div className="flex gap-2 items-center w-[40%]">
-
+                </div>
+                <div className="flex gap-2 items-center w-[40%]">
                   <label>Qty:</label>
                   <input
                     type="number"
                     min="1"
                     value={item.quantity}
                     onChange={(e) => handleQuantityChange(e, item)}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-14 p-2  "                />
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-14 p-2  "
+                  />
                   <button onClick={() => handleRemoveFromCart(item)}>
-                  <svg fill="none" stroke="currentColor " className="h-4" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"></path>
-</svg>
+                    <svg
+                      fill="none"
+                      stroke="currentColor "
+                      className="h-4"
+                      stroke-width="1.5"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                      ></path>
+                    </svg>
                   </button>
-                  </div>
                 </div>
-              ))}
-            </div>
-            <div className="h-[8%] flex justify-between px-4 py-2 items-center">
-              <h2 className="text-2xl font-semibold">Total:</h2>
-              {/* {dataSalesTax.items?.map((item) => (
+              </div>
+            ))}
+          </div>
+          <div className="h-[8%] flex justify-between px-4 py-2 items-center">
+            <h2 className="text-2xl font-semibold">Total:</h2>
+            {/* {dataSalesTax.items?.map((item) => (
                 <div className="item-card" key={item.id}>
                   <h3>{item}</h3>
                 
                 </div>
               ))} */}
-              <h2 className="text-2xl font-bold">$ {dataSalesTax?.total}</h2>
-            </div>
+            <h2 className="text-2xl font-bold">$ {dataSalesTax?.total}</h2>
+
+            <button
+              onClick={showReceipt}
+              className="inline-flex items-center justify-between w-full h-12 px-6 mb-2 font-medium tracking-wide text-gray-100 transition duration-200 bg-blue-500 rounded-xl shadow-md hover:bg-blue-900 focus:shadow-outline focus:outline-none "
+            >
+              <svg
+                fill="none"
+                stroke="currentColor"
+                className="h-7"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                ></path>
+              </svg>
+              <div className="text-sm">Checkout</div>
+            </button>
+          </div>
         </div>
       </div>
+      {modalOpen && (
+        <div
+          className="relative z-10"
+          aria-labelledby="modal-title"
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+          <div className="fixed inset-0 z-10 overflow-y-auto">
+            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                  <div className="sm:flex sm:items-start">
+                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <svg fill="none" className="h-6" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"></path>
+</svg>
+                    </div>
+                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                      <h3
+                        className="text-base font-semibold leading-6 text-gray-900"
+                        id="modal-title"
+                      >
+                        Receipt
+                      </h3>
+                      <div className="mt-2 text-sm text-gray-500">
+                        {/* <h2>Receipt</h2> */}
+                        {dataSalesTax.items.map((item, index) => (
+                          <div key={index}>
+                            <p>{item}</p>
+                            {/* Add other details you want to display for each item */}
+                          </div>
+                        ))}
+                        <p>Total Payment: {dataSalesTax.total}</p>
+                        <p>Total Tax: {dataSalesTax.salesTaxes}</p>
+                        {/* <p className="text-sm text-gray-500">
+                          Are you sure you want to deactivate your account? All
+                          of your data will be permanently removed. This action
+                          cannot be undone.
+                        </p> */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <button
+                                      onClick={hideReceipt}
+
+                    type="button"
+                    className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                  >
+                    OK
+                  </button>
+                  <button
+                    onClick={hideReceipt}
+                    type="button"
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        // <div className="modal">
+        //   <h2>Receipt</h2>
+        //   {selectedItems.map((item, index) => (
+        //     <div key={index}>
+        //       <p>{item.name}</p>
+        //       {/* Add other details you want to display for each item */}
+        //     </div>
+        //   ))}
+        //   <p>Total Payment: {dataSalesTax.total}</p>
+        //   <p>Total Tax: {dataSalesTax.salesTaxes}</p>
+        //   <button onClick={hideReceipt}>Close</button>
+        // </div>
+      )}
     </div>
   );
 }
