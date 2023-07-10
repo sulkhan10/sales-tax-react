@@ -215,7 +215,24 @@ function App() {
           ))}
         </div>
         <div className="sm:w-1/4  bg-blue-200 flex flex-col m-2  rounded-lg">
-          <div className="h-[8%] px-4 py-2 text-gray-800">
+          <div className="h-[8%] px-4 py-2 text-gray-800 flex gap-4 items-center mt-2">
+            <div className=" flex h-12 w-12 items-center justify-center rounded-full bg-blue-100  sm:h-10 sm:w-10">
+              <svg
+                fill="none"
+                className="h-6"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                ></path>
+              </svg>
+            </div>
             <h2 className="text-2xl font-bold">Shopping Cart</h2>
           </div>
           <div className="h-[84%]  overflow-y-scroll ">
@@ -258,7 +275,7 @@ function App() {
               </div>
             ))}
           </div>
-          <div className="h-[8%] flex justify-between px-4 py-2 items-center">
+          <div className="h-[8%] flex justify-between px-4 py-2 mb-4 items-center">
             <h2 className="text-2xl font-semibold">Total:</h2>
             {/* {dataSalesTax.items?.map((item) => (
                 <div className="item-card" key={item.id}>
@@ -270,24 +287,25 @@ function App() {
 
             <button
               onClick={showReceipt}
-              className="inline-flex items-center justify-between w-full h-12 px-6 mb-2 font-medium tracking-wide text-gray-100 transition duration-200 bg-blue-500 rounded-xl shadow-md hover:bg-blue-900 focus:shadow-outline focus:outline-none "
+              className="inline-flex items-center justify-between  h-10 px-4  font-medium tracking-wide text-gray-100 transition duration-200 bg-blue-500 rounded-xl shadow-md hover:bg-blue-900 focus:shadow-outline focus:outline-none "
             >
               <svg
                 fill="none"
                 stroke="currentColor"
-                className="h-7"
                 stroke-width="1.5"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
+                className="h-7"
               >
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                  d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
                 ></path>
               </svg>
-              <div className="text-sm">Checkout</div>
+
+              <div className="text-sm ml-2">Show Receipt</div>
             </button>
           </div>
         </div>
@@ -307,9 +325,21 @@ function App() {
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-                    <svg fill="none" className="h-6" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"></path>
-</svg>
+                      <svg
+                        fill="none"
+                        className="h-6"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                        ></path>
+                      </svg>
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                       <h3
@@ -339,8 +369,7 @@ function App() {
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
-                                      onClick={hideReceipt}
-
+                    onClick={hideReceipt}
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                   >
